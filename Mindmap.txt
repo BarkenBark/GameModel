@@ -1,0 +1,56 @@
+Variabler:
+
+new GameTile:
+SNAKE_HEAD - Grafisk repr. för ormhuvudet
+SNAKE_BODY - Grafisk repr. för ormkroppsdel
+FOOD - Grafisk repr. för matbit
+BLANK_TILE - Grafisk repr. för tom ruta
+
+new Deque:
+snake = new ArrayDeque<Position> - En lista med
+positionerna för ormens huvud samt kroppsdelar
+
+new Position:
+foodPos - Nuvarande matbitsposition
+
+new int:
+score - poäng
+
+new Direction:
+direction - Ormhuvudets riktning
+
+
+
+
+METODER:
+
+public SnakeModel(): (Konstruktorn)
+-Resetta spelbrädet genom att fylla det med BLANK_TILE's
+-Placera ormhuvud och två/tre kroppsdelar i mitten
+-Placera ut en matbit
+
+private void addFood(): (Placera ut matbit)
+-Se till att den sätts ut på en tom position
+
+private boolean isPositionEmpty(final Position pos):
+-kolla om spelbrädet i positionen givet i argumentet
+är tom eller ej. 
+-true = tom, false = inte tom 
+
+private void updateDirection(final int key) 
+- Baserat på input, ändra variabeln direction
+
+private Position getNextSnakePos()
+- Beräkna vart ormhuvudet ska hamna härnäst, baserat 
+på nuvarande position + riktning.
+
+private boolean isOoutofBounds(Position pos) 
+- Kolla om ormhuvudet är utanför spelbrädet
+
+private void drawSnake() - CANCELLED
+- Ritar ut hela ormen i en for-loop
+
+private void gameUpdate(final int lastKey)
+- Uppdatera spelbrädet så att det ser ut som det ska i nästa frame,
+baserat på hur det ser ut i nuvarande + input.
+
