@@ -60,6 +60,7 @@ public class SnakeModel extends GameModel {
 	/** Current direction of the snake's head */
 	private Directions direction = Directions.NORTH; //Initial direction north
 	
+	/** Default constructor */
 	public SnakeModel() {
 		Dimension size = getGameboardSize();
 		
@@ -72,7 +73,7 @@ public class SnakeModel extends GameModel {
 		}
 		
 		//Spawn snakehead in the middle 
-		//TODO Spawn one or two body parts adjacent
+		//TODO Spawn one or two body parts adjacent to head
 		Position initialPos = new Position(size.height / 2,
 				size.width / 2); 
 		this.snakePos.addFirst(initialPos);
@@ -83,6 +84,8 @@ public class SnakeModel extends GameModel {
 		
 	}
 	
+	/** Places a piece of food on the gameboard where possible */
+	//TODO Ignore placing piece of food if the gameboard is filled
 	private void addFood(){
 		Dimension size = getGameboardSize();
 		
