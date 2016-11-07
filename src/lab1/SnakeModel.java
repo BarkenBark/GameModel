@@ -30,6 +30,8 @@ public class SnakeModel extends GameModel {
 		public int getYDelta() {
 			return this.yDelta;
 		}
+		
+		
 	}
 	
 	/** Graphical representation of the snake's head. */
@@ -103,24 +105,39 @@ public class SnakeModel extends GameModel {
 		return (getGameboardState(pos) == BLANK_TILE);
 	}
 	
+	
+	//TODO Make sure you can't go back into yourself
 	/**
 	 * Update the direction of the snake head
 	 * according to the user's keypress.
 	 */
 	private void updateDirection(final int key) {
-		switch (key) {
+		switch (key) { //Should break; be within if-statements or outside?
 			case KeyEvent.VK_LEFT:
+				if (this.direction != Directions.EAST){
 				this.direction = Directions.WEST;
+				}
 				break;
 			case KeyEvent.VK_UP:
+				if (this.direction != Directions.SOUTH){
 				this.direction = Directions.NORTH;
+				}
 				break;
+
 			case KeyEvent.VK_RIGHT:
+				if (this.direction != Directions.WEST){
 				this.direction = Directions.EAST;
+				}
 				break;
+				
+
 			case KeyEvent.VK_DOWN:
+				if (this.direction != Directions.NORTH){
 				this.direction = Directions.SOUTH;
+				}
 				break;
+				
+				
 			default:
 				// Don't change direction if another key is pressed
 				break;
