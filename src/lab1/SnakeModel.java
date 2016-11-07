@@ -159,9 +159,12 @@ public class SnakeModel extends GameModel {
 		snakePos.addFirst(getNextSnakePos());
 		setGameboardState(this.snakePos.getFirst(), SNAKE_HEAD);
 		
+		//Debugging
+		/*
 		System.out.print("X-pos " + snakePos.getFirst().getX()+ "  ");
 		System.out.print("Y-pos " + snakePos.getFirst().getY()+ "  ");
 		System.out.println("Foodpos x " + this.foodPos.getX() + " Foodpos y " + this.foodPos.getY());
+		*/
 		
 		//Check if the snake head is on pos = foodPos, if then; addFood(), score+1, 
 		if (this.snakePos.getFirst().equals(foodPos)){
