@@ -149,6 +149,11 @@ public class SnakeModel extends GameModel {
 	public void gameUpdate(final int lastKey) throws GameOverException{
 		updateDirection(lastKey);
 		
+		//Check if out of bounds or collides with body, if then; throw GameOverException
+		if (isOutOfBounds(getNextSnakePos()) || this.snakePos.contains(getNextSnakePos())) {
+			throw new GameOverException(this.score);
+		}
+		
 		//Replace current headPos with body, Update snakePos, and draw it at the new position
 		setGameboardState(this.snakePos.getFirst(), SNAKE_BODY);
 		snakePos.addFirst(getNextSnakePos());
@@ -158,15 +163,10 @@ public class SnakeModel extends GameModel {
 		System.out.print("Y-pos " + snakePos.getFirst().getY()+ "  ");
 		System.out.println("Foodpos x " + this.foodPos.getX() + " Foodpos y " + this.foodPos.getY());
 		
-		//Check if out of bounds or collides with body, if then; throw GameOverException
-		if (isOutOfBounds(this.snakePos.getFirst())){//|| this.snakePos.contains(this.snakePos.getFirst())) {
-			throw new GameOverException(this.score);
-		}
-		
 		//Check if the snake head is on pos = foodPos, if then; addFood(), score+1, 
 		if (this.snakePos.getFirst().equals(foodPos)){
 			addFood();
-			System.out.println("Food added");
+			System.out.println("Score!");
 			this.score++;
 		}else{
 			setGameboardState(snakePos.getLast(), BLANK_TILE);
