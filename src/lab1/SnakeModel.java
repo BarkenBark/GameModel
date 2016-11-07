@@ -65,8 +65,8 @@ public class SnakeModel extends GameModel {
 		Dimension size = getGameboardSize();
 		
 		//Reset the gameboard
-		for (int i=1; i<=size.height; i++){
-			for (int j=1; j<=size.width; j++){
+		for (int i=0; i<size.height; i++){
+			for (int j=0; j<size.width; j++){
 				setGameboardState(i, j, BLANK_TILE);
 			}
 			
@@ -91,8 +91,8 @@ public class SnakeModel extends GameModel {
 		
 		//Randomize position until at empty tile
 		do{
-			this.foodPos = new Position((int) Math.random() * size.width,
-					(int) Math.random() * size.height);
+			this.foodPos = new Position((int) (Math.random() * size.width),
+					(int) (Math.random() * size.height));
 		}while(!isPositionEmpty(foodPos));
 	
 		setGameboardState(foodPos, FOOD);
@@ -150,18 +150,23 @@ public class SnakeModel extends GameModel {
 		updateDirection(lastKey);
 		
 		//Replace current headPos with body, Update snakePos, and draw it at the new position
-		setGameboardState(snakePos.getFirst(), SNAKE_BODY);
+		setGameboardState(this.snakePos.getFirst(), SNAKE_BODY);
 		snakePos.addFirst(getNextSnakePos());
-		setGameboardState(snakePos.getFirst(), SNAKE_HEAD);
+		setGameboardState(this.snakePos.getFirst(), SNAKE_HEAD);
+		
+		System.out.print("X-pos " + snakePos.getFirst().getX()+ "  ");
+		System.out.print("Y-pos " + snakePos.getFirst().getY()+ "  ");
+		System.out.println("Foodpos x " + this.foodPos.getX() + " Foodpos y " + this.foodPos.getY());
 		
 		//Check if out of bounds or collides with body, if then; throw GameOverException
-		if (isOutOfBounds(getNextSnakePos()) || this.snakePos.contains(getNextSnakePos())) {
+		if (isOutOfBounds(this.snakePos.getFirst())){//|| this.snakePos.contains(this.snakePos.getFirst())) {
 			throw new GameOverException(this.score);
 		}
 		
 		//Check if the snake head is on pos = foodPos, if then; addFood(), score+1, 
-		if (snakePos.getFirst()==foodPos){
+		if (this.snakePos.getFirst().equals(foodPos)){
 			addFood();
+			System.out.println("Food added");
 			this.score++;
 		}else{
 			setGameboardState(snakePos.getLast(), BLANK_TILE);
