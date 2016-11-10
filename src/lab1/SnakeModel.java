@@ -6,6 +6,15 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * 
+ * @author Jesper Larsson & Oscar Bark
+ * Model of a basic snake game. The snake moves in either x or y direction.
+ * Game over if the snake tries to go through itself or a wall. 
+ * One piece of food is on the board at a time. When eaten a new will spawn.
+ * Each piece of food increases the size of the snake by one.
+ *
+ */
 
 public class SnakeModel extends GameModel {
 	public enum Directions {
@@ -106,7 +115,6 @@ public class SnakeModel extends GameModel {
 	}
 	
 	
-	//TODO Make sure you can't go back into yourself
 	/**
 	 * Update the direction of the snake head
 	 * according to the user's keypress.
@@ -114,7 +122,7 @@ public class SnakeModel extends GameModel {
 	private void updateDirection(final int key) {
 		switch (key) { //Should break; be within if-statements or outside?
 			case KeyEvent.VK_LEFT:
-				if (this.direction != Directions.EAST){
+				if (this.direction != Directions.EAST){ // Prevents reverse control
 				this.direction = Directions.WEST;
 				}
 				break;
@@ -143,7 +151,10 @@ public class SnakeModel extends GameModel {
 				break;
 		}
 	}
-	
+	/**
+	 * Gets the next position of the snake's head
+	 * @return Position x,y of next position. 
+	 */
 	private Position getNextSnakePos(){
 		return new Position(
 				this.snakePos.getFirst().getX() + this.direction.getXDelta(),
@@ -155,7 +166,7 @@ public class SnakeModel extends GameModel {
 	/**
 	 * 
 	 * @param pos The position to test.
-	 * @return <code>false</code> if the position is outside the playing field, <code>true</code> otherwise.
+	 * @return false if the position is outside the playing field, true otherwise.
 	 */
 	private boolean isOutOfBounds(Position pos) {
 		return pos.getX() < 0 || pos.getX() >= getGameboardSize().width

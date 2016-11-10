@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.*;
 
 /**
  * The controller class of the framework. Listens to user keystrokes and
@@ -155,10 +156,9 @@ public class GameController implements Runnable {
 
 				Thread.sleep(this.updateInterval);
 			} catch (GameOverException e) {
-				// we got a game over signal, time to exit...
-				// The current implementation ignores the game score
 				this.isRunning = false;
 				System.out.println("Game over: " + e.getScore());
+				JOptionPane.showMessageDialog(null, "Game Over! Score " + e.getScore()); // Shows a game over message with the score.
 			} catch (InterruptedException e) {
 				// if we get this exception, we're asked to terminate ourselves
 				this.isRunning = false;
