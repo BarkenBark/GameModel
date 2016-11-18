@@ -179,7 +179,8 @@ public class SnakeModel extends GameModel {
 		
 		//Check if out of bounds or collides with body, if then; throw GameOverException
 		if (isOutOfBounds(getNextSnakePos()) || this.snakePos.contains(getNextSnakePos())) {
-			throw new GameOverException(this.score);
+			final boolean didWin = false; // Clearify that this is a loss.
+			throw new GameOverException(this.score, didWin);
 		}
 		
 		//Replace current headPos with body, Update snakePos, and draw it at the new position
@@ -201,6 +202,12 @@ public class SnakeModel extends GameModel {
 		}else{
 			setGameboardState(snakePos.getLast(), BLANK_TILE);
 			snakePos.removeLast();
+		}
+		
+		if (this.score == (getGameboardSize().getHeight()*getGameboardSize().getWidth()) - 90){
+			final boolean didWin = true; // Clarify that this is a victory.
+			throw new GameOverException(this.score, didWin);
+			
 		}
 		
 	}

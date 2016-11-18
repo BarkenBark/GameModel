@@ -157,9 +157,16 @@ public class GameController implements Runnable {
 				Thread.sleep(this.updateInterval);
 			} catch (GameOverException e) {
 				this.isRunning = false;
-				System.out.println("Game over: " + e.getScore());
-				JOptionPane.showMessageDialog(null, "Game Over! Score " + e.getScore()); // Shows a game over message with the score.
-			} catch (InterruptedException e) {
+				if(e.getDidWin() == false){
+					System.out.println("Game over: " + e.getScore());
+					JOptionPane.showMessageDialog(null, "Game Over! Score " + e.getScore()); // Shows a game over message with the score.
+				}else if(e.getDidWin() == true){
+					System.out.println("Victory! " + e.getScore());
+					JOptionPane.showMessageDialog(null, "Victory! Score" + e.getScore());
+				}
+
+			}
+			catch (InterruptedException e) {
 				// if we get this exception, we're asked to terminate ourselves
 				this.isRunning = false;
 			}
