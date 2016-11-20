@@ -84,7 +84,6 @@ public class SnakeModel extends GameModel {
 		}
 		
 		//Spawn snakehead in the middle 
-		//TODO Spawn one or two body parts adjacent to head
 		Position initialPos = new Position(size.height / 2,
 				size.width / 2); 
 		this.snakePos.addFirst(initialPos);
@@ -96,11 +95,12 @@ public class SnakeModel extends GameModel {
 	}
 	
 	/** Places a piece of food on the gameboard where possible */
-	//TODO Ignore placing piece of food if the gameboard is filled
+
 	private void addFood(){
 		Dimension size = getGameboardSize();
 		
 		//Randomize position until at empty tile
+		//We throw GameOverException(score, didWin=true) to prevent infinite loop
 		do{
 			this.foodPos = new Position((int) (Math.random() * size.width),
 					(int) (Math.random() * size.height));
@@ -204,7 +204,7 @@ public class SnakeModel extends GameModel {
 			snakePos.removeLast();
 		}
 		
-		if (this.score == (getGameboardSize().getHeight()*getGameboardSize().getWidth()) - 90){
+		if (this.score == (getGameboardSize().getHeight()*getGameboardSize().getWidth()) - 1){
 			final boolean didWin = true; // Clarify that this is a victory.
 			throw new GameOverException(this.score, didWin);
 			
