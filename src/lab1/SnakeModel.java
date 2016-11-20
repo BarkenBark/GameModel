@@ -197,18 +197,20 @@ public class SnakeModel extends GameModel {
 		
 		//Check if the snake head is on pos = foodPos, if then; addFood(), score+1, 
 		if (this.snakePos.getFirst().equals(foodPos)){
-			addFood();
 			this.score++;
+			if (this.score == (getGameboardSize().getHeight()*getGameboardSize().getWidth()) - 1){
+				final boolean didWin = true; // Clarify that this is a victory.
+				throw new GameOverException(this.score, didWin);
+				
+			}
+			addFood();
+
 		}else{
 			setGameboardState(snakePos.getLast(), BLANK_TILE);
 			snakePos.removeLast();
 		}
 		
-		if (this.score == (getGameboardSize().getHeight()*getGameboardSize().getWidth()) - 1){
-			final boolean didWin = true; // Clarify that this is a victory.
-			throw new GameOverException(this.score, didWin);
-			
-		}
+
 		
 	}
 	
